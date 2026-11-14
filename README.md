@@ -1,12 +1,12 @@
-# Ryn 9B
+# Ryn
 
-Ryn is a coding-model project by **bxane**. This repository contains a MiniMind-based model configuration, data preparation, and multi-GPU training entrypoint for a dense model targeting approximately 8.9 billion parameters.
+Ryn is a coding-model project by **bxane**. The active local training target is **Ryn-0.3B**, a MiniMind-based model sized for experiments on a 12 GB GPU. The repository also records **Ryn-9B** as a future multi-GPU target.
 
 **Training status:** the model weights have not been trained or released. The repository is a reproducible starting point, not a claim that Ryn currently matches Codex, Qwen, Kimi, or DeepSeek. A 9B model's capability comes from its training data, token budget, and optimization as well as its architecture. Matching frontier coding models would require a large, carefully licensed corpus, substantial multi-GPU compute, instruction tuning, and independent evaluations.
 
 ## Architecture
 
-`configs/ryn9b.json` defines 38 MiniMind transformer blocks with 4,096 hidden dimensions, 32 attention heads, 8 KV heads, and a 14,336-wide MLP. It uses the 152,064-token Qwen2.5-Coder vocabulary and a 32K positional limit. The approximate parameter count is 8.912B; the training script derives the exact vocabulary size from the downloaded tokenizer.
+`configs/ryn0_3b.json` defines a 296M-parameter dense model for a single-GPU pilot. `configs/ryn9b.json` defines the future 8.912B target: 38 MiniMind transformer blocks with 4,096 hidden dimensions, 32 attention heads, 8 KV heads, and a 14,336-wide MLP. Both use the 152,064-token Qwen2.5-Coder vocabulary. The training script derives the vocabulary size from the downloaded tokenizer.
 
 MiniMind is included as a pinned Git submodule. Its model implementation is the architecture used by Ryn; the Ryn training entrypoint adds FSDP full sharding for multi-GPU training.
 
@@ -87,6 +87,23 @@ torchrun --standalone --nproc_per_node=1 scripts/train.py \
 ```
 
 This pilot is a training-pipeline and data check, not a substitute for Ryn 9B or a frontier coding model.
+
+After the pilot checkpoint is saved, instruction-tune it on a reviewed coding conversation dataset:
+
+```bash
+torchrun --standalone --nproc_per_node=1 scripts/train.py \
+  --stage sft \
+  --config configs/ryn0_3b.json \
+  --data data/ryn-code-sft.jsonl \
+  --init-from outputs/ryn0.3b-pilot \
+  --output-dir outputs/ryn0.3b-instruct \
+  --steps 1000 \
+  --max-seq-len 1024 \
+  --batch-size 1 \
+  --grad-accum 8 \
+  --learning-rate 2e-5 \
+  --save-every 250
+```
 
 Then instruction-tune the trained base checkpoint on a separately licensed coding conversation dataset:
 
