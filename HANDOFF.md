@@ -16,7 +16,9 @@ Use this file to continue the Ryn work in a GPU-enabled Codex session.
 The project files in this repository are intended to include:
 
 - `configs/ryn9b.json`: 4,096 hidden size, 38 layers, 32 attention heads, 8 KV heads, 14,336 MLP size, 32,768 positional limit, Qwen2.5-Coder tokenizer.
-- Approximate dense parameter count: **8.911B**, computed with tied input/output embeddings and the configured 151,936-token vocabulary.
+- Approximate dense parameter count: **8.912B**, computed with tied input/output embeddings and the configured 152,064-token vocabulary.
+- `configs/ryn0_3b.json`: 296M-parameter MiniMind model for the user's single RTX 4070 Super (12 GB VRAM) from-scratch pilot.
+- `configs/ryn0_2b.json`: 217M-parameter smaller fallback if the 296M pilot exceeds measured VRAM.
 - `upstream/minimind`: pinned Git submodule at upstream revision `233d00fa068ec2b8c0d4f07b703934d6391a5a73`.
 - `tools/prepare_code_data.py`: local source/JSONL preparation with deduplication, basic credential filtering, and a license manifest.
 - `scripts/train.py`: MiniMind model training with PyTorch FSDP full sharding; supports code pretraining and assistant-only SFT.
@@ -40,7 +42,7 @@ Do not silently change the requested model size or swap in a pretrained model. C
 1. Open or clone `bxanedot/ryn`, then run `git submodule update --init --recursive`.
 2. Read this file, `README.md`, `configs/ryn9b.json`, and `scripts/train.py` before changing the training plan.
 3. Check the available GPU, VRAM, system RAM, CUDA, disk space, and checkpoint storage. On a 4070 Super, do not launch the `ryn9b` pretraining command.
-4. Ask the user which path they want if the available host is limited to the 4070 Super: a smaller from-scratch MiniMind model or QLoRA adaptation of an existing coding model.
+4. The user chose a roughly 0.3B from-scratch pilot for the 4070 Super. Use `configs/ryn0_3b.json` and the exact one-GPU command in the README. If it exceeds measured VRAM, reduce sequence length and then fall back to `configs/ryn0_2b.json`. This small model is for basic coding patterns and a training experiment, not Codex-level capability. Ask before switching to QLoRA adaptation of an existing coding model.
 5. Keep training data out of Git. Use only data with documented training rights; preserve the generated `.manifest.json` and corpus provenance.
 6. Start with a short pilot on the selected hardware. Record GPU type, batch size, sequence length, tokens/sec, peak VRAM, loss, and checkpoint size before scaling.
 7. Save weights outside normal Git history (for example, a model artifact store or Git LFS after confirming destination and access). Add evaluation results and exact run metadata before calling any checkpoint a release.

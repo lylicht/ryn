@@ -6,7 +6,7 @@ Ryn is a coding-model project by **bxane**. This repository contains a MiniMind-
 
 ## Architecture
 
-`configs/ryn9b.json` defines 38 MiniMind transformer blocks with 4,096 hidden dimensions, 32 attention heads, 8 KV heads, and a 14,336-wide MLP. It uses the Qwen2.5-Coder tokenizer vocabulary and a 32K positional limit. The approximate parameter count is 8.9B; the training script derives the exact vocabulary size from the downloaded tokenizer.
+`configs/ryn9b.json` defines 38 MiniMind transformer blocks with 4,096 hidden dimensions, 32 attention heads, 8 KV heads, and a 14,336-wide MLP. It uses the 152,064-token Qwen2.5-Coder vocabulary and a 32K positional limit. The approximate parameter count is 8.912B; the training script derives the exact vocabulary size from the downloaded tokenizer.
 
 MiniMind is included as a pinned Git submodule. Its model implementation is the architecture used by Ryn; the Ryn training entrypoint adds FSDP full sharding for multi-GPU training.
 
@@ -68,6 +68,25 @@ torchrun --standalone --nproc_per_node="$NPROC_PER_NODE" \
 ```
 
 The command above is a starting configuration, not a complete frontier-scale training run. Increase the token budget and sequence length only after measuring memory and throughput. The current runtime cannot start that run: it exposes no GPU or PyTorch installation, and no remote GPU job tool is connected.
+
+## Single-GPU pilot
+
+For a 12 GB GPU such as an RTX 4070 Super, do not run the 9B configuration from scratch. Start with the separate 296M-parameter MiniMind model, then adjust sequence length and batch settings only after measuring peak VRAM:
+
+```bash
+torchrun --standalone --nproc_per_node=1 scripts/train.py \
+  --stage pretrain \
+  --config configs/ryn0_3b.json \
+  --data data/ryn-code-pretrain.jsonl \
+  --output-dir outputs/ryn0.3b-pilot \
+  --steps 2000 \
+  --max-seq-len 1024 \
+  --batch-size 1 \
+  --grad-accum 8 \
+  --save-every 500
+```
+
+This pilot is a training-pipeline and data check, not a substitute for Ryn 9B or a frontier coding model.
 
 Then instruction-tune the trained base checkpoint on a separately licensed coding conversation dataset:
 

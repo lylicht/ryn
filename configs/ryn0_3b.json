@@ -1,0 +1,18 @@
+{
+  "model_name": "ryn0.3b",
+  "model_type": "minimind",
+  "description": "From-scratch MiniMind coding model sized for a single 12 GB GPU pilot.",
+  "hidden_size": 768,
+  "num_hidden_layers": 24,
+  "num_attention_heads": 12,
+  "num_key_value_heads": 4,
+  "head_dim": 64,
+  "intermediate_size": 2560,
+  "max_position_embeddings": 8192,
+  "rope_theta": 1000000.0,
+  "tie_word_embeddings": true,
+  "use_moe": false,
+  "tokenizer_name": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "tokenizer_vocab_size_expected": 152064,
+  "parameter_count_estimate": 296132352
+}
