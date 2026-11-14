@@ -6,7 +6,7 @@ Ryn uses the model implementation from [jingyaogong/minimind](https://github.com
 
 ## Tokenizer
 
-The default tokenizer is downloaded from [`Qwen/Qwen2.5-Coder-7B-Instruct`](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) at training time. It is not bundled in this repository. Follow the source model's license and terms for the tokenizer assets.
+The default tokenizer is downloaded from [`Qwen/Qwen2.5-0.5B-Instruct`](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) at training time. Only tokenizer assets are used; no Qwen model weights are included. Follow the source model's license and terms for the tokenizer assets.
 
 ## Training data
 

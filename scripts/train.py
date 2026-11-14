@@ -122,7 +122,7 @@ def load_config(path: str, tokenizer) -> MiniMindConfig:
 def build_parser():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=("pretrain", "sft"), required=True)
-    parser.add_argument("--config", default="configs/ryn9b.json")
+    parser.add_argument("--config", default="configs/ryn0_3b.json")
     parser.add_argument("--data", required=True, help="MiniMind-compatible JSONL file or glob")
     parser.add_argument("--tokenizer", default=None, help="Defaults to the tokenizer in the model config")
     parser.add_argument("--init-from", default=None, help="Ryn checkpoint directory for SFT")
@@ -158,9 +158,9 @@ def save_model(model, tokenizer, output_dir: str, rank: int) -> None:
 def main() -> None:
     args = build_parser().parse_args()
     if not torch.cuda.is_available():
-        raise RuntimeError("Ryn 9B training requires CUDA GPUs; no GPU is visible to this process")
+        raise RuntimeError("Training requires a CUDA GPU; no GPU is visible to this process")
     if not torch.cuda.is_bf16_supported():
-        raise RuntimeError("Ryn 9B training requires GPUs with BF16 support")
+        raise RuntimeError("Training requires a GPU with BF16 support")
     if min(args.steps, args.grad_accum, args.batch_size, args.save_every) < 1:
         raise ValueError("steps, grad-accum, batch-size, and save-every must be positive")
     if args.max_seq_len < 3:

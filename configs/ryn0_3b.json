@@ -1,7 +1,7 @@
 {
-  "model_name": "ryn0.3b",
+  "model_name": "ryn-assistant-300m",
   "model_type": "minimind",
-  "description": "From-scratch MiniMind coding model sized for a single 12 GB GPU pilot.",
+  "description": "From-scratch multilingual general assistant sized for a single 12 GB GPU pilot.",
   "hidden_size": 768,
   "num_hidden_layers": 24,
   "num_attention_heads": 12,
@@ -12,7 +12,7 @@
   "rope_theta": 1000000.0,
   "tie_word_embeddings": true,
   "use_moe": false,
-  "tokenizer_name": "Qwen/Qwen2.5-Coder-7B-Instruct",
-  "tokenizer_vocab_size_expected": 152064,
-  "parameter_count_estimate": 296132352
+  "tokenizer_name": "Qwen/Qwen2.5-0.5B-Instruct",
+  "tokenizer_vocab_size_expected": 151936,
+  "parameter_count_estimate": 296034048
 }
