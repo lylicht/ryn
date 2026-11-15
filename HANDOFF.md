@@ -4,7 +4,7 @@
 
 - Repository: <https://github.com/bxanedot/ryn>
 - Model: Ryn Assistant 300M, configured for **295,825,920 parameters** in `configs/ryn0_3b.json`.
-- CUDA pretraining resumed at **2026-11-15 20:59:26 CET (Europe/Zurich)** from exact durable checkpoint 2,700. Startup verified 295,825,920 parameters, tokenizer vocabulary 151,665, and CUDA. The previous session logged step 3,800 but did not save steps 2,800–3,800, so resume progress is 12.37% (123,699,200 durable lifetime tokens) from step 2,700.
+- CUDA pretraining resumed at **2026-11-15 20:59:26 CET (Europe/Zurich)** from exact durable checkpoint 2,700. As of **21:12 CET**, the restarted run logged step 3,500 with loss 4.4798 and 9,290.9 tokens/second. Logged lifetime progress reached 13.03%, but `latest.json` remains at durable step 2,700 (12.37%); the next scheduled save is step 15,000. The prior session logged step 3,800 but did not save steps 2,800–3,800, so those updates were lost.
 - Prepared pretraining and SFT data plus the step 2,700 checkpoint are kept outside Git in `../ryn-data`; a read-only snapshot is in `../ryn-preservation/RynData-20261115-1830`. The live data tree is writable during training; relock it Read & Execute only when paused.
 - Private GitHub backups: code branch `codex/ryn-training-system` (latest commit includes this handoff); draft recovery release [ryn-backup-2026-11-15-step-2700](https://github.com/bxanedot/ryn/releases/tag/untagged-526a1ef0e06e598d4cef) includes the exact-resume checkpoint and prepared pretraining/SFT data with SHA-256 manifests. It omits raw downloads, rebuildable caches, logs, and older checkpoints.
 - Architecture: MiniMind submodule pinned at `233d00fa068ec2b8c0d4f07b703934d6391a5a73`.
