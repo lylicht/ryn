@@ -13,6 +13,6 @@
   "tie_word_embeddings": true,
   "use_moe": false,
   "tokenizer_name": "Qwen/Qwen2.5-0.5B-Instruct",
-  "tokenizer_vocab_size_expected": 151936,
-  "parameter_count_estimate": 296034048
+  "tokenizer_vocab_size_expected": 151665,
+  "parameter_count_estimate": 295825920
 }

@@ -5,8 +5,11 @@ venv/
 data/
 checkpoints/
 outputs/
+.ryn-cache/
+.hf-cache/
 *.safetensors
 *.pt
 *.pth
 *.log
+*.tmp
 .DS_Store
