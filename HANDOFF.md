@@ -4,8 +4,8 @@
 
 - Repository: <https://github.com/bxanedot/ryn>
 - Model: Ryn Assistant 300M, configured for **295,825,920 parameters** in `configs/ryn0_3b.json`.
-- CUDA pretraining resumed at **2026-11-15 20:35:47 CET** from exact durable checkpoint 2,700 and paused at **2026-11-15 20:53 CET** after logging step 3,800. Last interval: loss 4.4505, 7,458.9 tokens/second, 73% sampled GPU utilization, 8.24 GiB peak VRAM. Logged cumulative progress reached 13.27%, but steps 2,800–3,800 were not saved; `latest.json` remains at durable step 2,700 (12.37%). Resume from that checkpoint.
-- Prepared pretraining and SFT data plus the step 2,700 checkpoint are kept outside Git in `../ryn-data`; a read-only snapshot is in `../ryn-preservation/RynData-20261115-1830`. The live data tree is also Read & Execute only for the current account while paused.
+- CUDA pretraining resumed at **2026-11-15 20:59:26 CET (Europe/Zurich)** from exact durable checkpoint 2,700. Startup verified 295,825,920 parameters, tokenizer vocabulary 151,665, and CUDA. The previous session logged step 3,800 but did not save steps 2,800–3,800, so resume progress is 12.37% (123,699,200 durable lifetime tokens) from step 2,700.
+- Prepared pretraining and SFT data plus the step 2,700 checkpoint are kept outside Git in `../ryn-data`; a read-only snapshot is in `../ryn-preservation/RynData-20261115-1830`. The live data tree is writable during training; relock it Read & Execute only when paused.
 - Private GitHub backups: code branch `codex/ryn-training-system` (latest commit includes this handoff); draft recovery release [ryn-backup-2026-11-15-step-2700](https://github.com/bxanedot/ryn/releases/tag/untagged-526a1ef0e06e598d4cef) includes the exact-resume checkpoint and prepared pretraining/SFT data with SHA-256 manifests. It omits raw downloads, rebuildable caches, logs, and older checkpoints.
 - Architecture: MiniMind submodule pinned at `233d00fa068ec2b8c0d4f07b703934d6391a5a73`.
 - Tokenizer: `Qwen/Qwen2.5-0.5B-Instruct`, tokenizer only. Model weights initialize randomly.
