@@ -4,7 +4,7 @@
 
 - Repository: <https://github.com/bxanedot/ryn>
 - Model: Ryn Assistant 300M, configured for **295,825,920 parameters** in `configs/ryn0_3b.json`.
-- Pretraining is currently active, resumed at **2026-11-15 20:35:47 CET** from exact durable checkpoint 2,700. Latest log is step 3,200 at 12.78% cumulative tokens and 9,342.2 tokens/second; current in-memory work is not durable yet, and `latest.json` remains at step 2,700. Startup verified 295,825,920 parameters and tokenizer vocabulary 151,665. An earlier retry logged step 2,800 without saving; those 100 updates were lost.
+- Pretraining is currently active, resumed at **2026-11-15 20:35:47 CET** from exact durable checkpoint 2,700. Latest log is step 3,500 at 13.03% cumulative tokens and 8,502.9 tokens/second; current in-memory work is not durable yet, and `latest.json` remains at step 2,700. Startup verified 295,825,920 parameters and tokenizer vocabulary 151,665. An earlier retry logged step 2,800 without saving; those 100 updates were lost.
 - Prepared pretraining and SFT data plus the step 2,700 checkpoint are kept outside Git in `../ryn-data`; a read-only snapshot is in `../ryn-preservation/RynData-20261115-1830`.
 - Private GitHub backups: code branch `codex/ryn-training-system` at `e491d5d`; draft recovery release tag `ryn-backup-2026-11-15-step-2700` includes exact-resume checkpoint and prepared pretraining/SFT data with SHA-256 manifests. It omits raw downloads, rebuildable caches, logs, and older checkpoints.
 - Architecture: MiniMind submodule pinned at `233d00fa068ec2b8c0d4f07b703934d6391a5a73`.
