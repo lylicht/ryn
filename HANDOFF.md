@@ -4,8 +4,9 @@
 
 - Repository: <https://github.com/bxanedot/ryn>
 - Model: Ryn Assistant 300M, configured for **295,825,920 parameters** in `configs/ryn0_3b.json`.
-- Paused status recorded **2026-11-15 20:18 CET**: latest durable exact-resume checkpoint is step 2,700 (123,699,200 / 1,000,000,000 lifetime tokens, 12.37%). A resume attempt logged step 2,800 but stopped before a new checkpoint was written; those 100 updates were lost.
+- Pretraining is currently active, resumed at **2026-11-15 20:35:47 CET** from exact durable checkpoint 2,700 (123,699,200 / 1,000,000,000 lifetime tokens, 12.37%). Startup verified the expected 295,825,920 parameters and 151,665-token tokenizer. A retry had logged step 2,800 without saving it; those 100 updates were lost.
 - Prepared pretraining and SFT data plus the step 2,700 checkpoint are kept outside Git in `../ryn-data`; a read-only snapshot is in `../ryn-preservation/RynData-20261115-1830`.
+- Private GitHub backups: code branch `codex/ryn-training-system` at `e491d5d`; draft recovery release tag `ryn-backup-2026-11-15-step-2700` includes exact-resume checkpoint and prepared pretraining/SFT data with SHA-256 manifests. It omits raw downloads, rebuildable caches, logs, and older checkpoints.
 - Architecture: MiniMind submodule pinned at `233d00fa068ec2b8c0d4f07b703934d6391a5a73`.
 - Tokenizer: `Qwen/Qwen2.5-0.5B-Instruct`, tokenizer only. Model weights initialize randomly.
 - From-scratch pretraining has run on the local RTX 4070 SUPER; no finished model has been exported or released.
