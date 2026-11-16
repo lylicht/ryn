@@ -1,6 +1,6 @@
 # Ryn: multilingual 300M assistant
 
-Ryn is a from-scratch multilingual general assistant built with the pinned MiniMind architecture. `configs/ryn0_3b.json` defines **295,825,920 parameters** with tied embeddings and the Qwen2.5 tokenizer. The tokenizer is used for text only; no Qwen model weights are used. Pretraining resumed on CUDA from step 2,700; final Ryn weights have not yet been exported or released.
+Ryn is a from-scratch multilingual general assistant built with the pinned MiniMind architecture. `configs/ryn0_3b.json` defines **295,825,920 parameters** with tied embeddings and the Qwen2.5 tokenizer. The tokenizer is used for text only; no Qwen model weights are used. CUDA pretraining resumed from durable checkpoint 70,000; the final fine-tuned model has not yet been evaluated or exported to Desktop.
 
 The pinned tokenizer has 151,665 entries. Both model configs and the trainer validate this vocabulary and its resulting parameter count; the prior config estimate used a stale vocabulary size.
 
@@ -333,7 +333,9 @@ python scripts/chat.py --model outputs/ryn-assistant-300m-instruct --prompt "Hel
 - The same private draft [recovery release](https://github.com/bxanedot/ryn/releases/tag/untagged-8b247b44c4811fb36156) now includes the step-70,000 incremental exact-resume bundle. GitHub-reported sizes and SHA-256 digests for both archive parts match the local manifest; the release remains private and unpublished.
 - Paused **2026-11-16 16:40 CET (Europe/Zurich)**. The log reached step **73,400** (702,873,600 lifetime tokens; **70.29%**), but `latest.json` still points to the durable step-70,000 checkpoint (**67.50%**). Resume from step 70,000; steps 70,001–73,400 will be repeated. The step-70,000 recovery bundle is present in the private draft release above.
 - Resumed **2026-11-16 20:31:58 CET (Europe/Zurich)** from durable checkpoint **70,000** (675,020,800 lifetime tokens; **67.50%**). The resumed log has reached step **70,100** (675,840,000 lifetime tokens; **67.58%**), with loss **3.7190**, **8,665 tokens/sec**, **93%** sampled GPU utilization, and **8.24 GiB** peak allocated VRAM. The latest durable checkpoint remains step 70,000; the run is repeating the unsaved steps 70,001–73,400 before continuing.
+- Live progress observed **2026-11-16 20:52 CET (Europe/Zurich)**: step **71,300**, 685,670,400 / 1,000,000,000 lifetime tokens (**68.57%**), loss **3.6861**, **8,762 tokens/sec**, **60%** sampled GPU utilization, and **8.24 GiB** peak allocated VRAM. This is log progress; the latest durable checkpoint remains step **70,000** (**67.50%**).
 - Save interval: every **5,000 optimizer steps** to reduce unsaved work; the exact-resume settings and effective batch size remain unchanged. Only C: is available for storage; it had **169 GiB free** at restart. Existing checkpoints are retained.
+- The active supervisor still uses the 5,000-step interval through the next durable save at step **75,000**. The committed launcher now sets a **15,000-step** interval for a restart from that checkpoint to reserve C: space for SFT and Desktop export; the tradeoff is a larger potential replay window. Existing Ryn checkpoints and training data are retained.
 - Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch as recorded in Hardware above.
 - Completion time and the verified Desktop artifact path will be recorded here after pretraining, SFT, evaluation, and export are finished.
 
