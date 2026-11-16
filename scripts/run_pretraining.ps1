@@ -33,7 +33,7 @@ try {
             '--target-tokens', '898419200', '--prior-tokens', '101580800', '--max-seq-len', '256',
             '--batch-size', "$batchSize", '--grad-accum', "$gradAccum",
             '--learning-rate', '4.94e-5', '--warmup-steps', '0',
-            '--save-every', '10000', '--eval-every', '5000', '--eval-steps', '32', '--log-every', '100'
+            '--save-every', '15000', '--eval-every', '5000', '--eval-steps', '32', '--log-every', '100'
         )
         if (Test-Path (Join-Path $runDir 'latest.json')) {
             $arguments += '--resume'
