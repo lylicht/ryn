@@ -303,6 +303,8 @@ CPU-compatible tests cover model shape and parameter count, config validation, s
 python -m unittest discover -s tests -v
 ```
 
+Verified **2026-11-16**: all **11** tests passed on CPU. These cover synthetic fixtures and checkpoint/inference mechanics; they do not establish task quality for the trained checkpoint.
+
 Chat with the latest checkpoint in a run directory:
 
 ```bash
