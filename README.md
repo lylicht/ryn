@@ -186,6 +186,8 @@ python tools/prepare_text_data.py \
 
 The OASST1 dataset card describes human-generated, annotated message trees and its train/validation files. The exporter uses its train split and the preparation tool creates a deterministic held-out split.
 
+The prepared snapshot contains **44,225 training** and **2,355 validation** records across eight languages. English and Spanish dominate; Arabic has 28 training records and Japanese 200, so the SFT data alone does not support balanced quality claims for those languages.
+
 For any other supervised fine-tuning source, prepare a JSONL of MiniMind-style conversations with `--format sft`. Each row needs `conversations` or `messages`, and each conversation needs at least one assistant response. Only assistant message tokens contribute to training loss.
 
 ```json
@@ -334,7 +336,7 @@ python scripts/chat.py --model outputs/ryn-assistant-300m-instruct --prompt "Hel
 - Paused **2026-11-16 16:40 CET (Europe/Zurich)**. The log reached step **73,400** (702,873,600 lifetime tokens; **70.29%**), but `latest.json` still points to the durable step-70,000 checkpoint (**67.50%**). Resume from step 70,000; steps 70,001–73,400 will be repeated. The step-70,000 recovery bundle is present in the private draft release above.
 - Resumed **2026-11-16 20:31:58 CET (Europe/Zurich)** from durable checkpoint **70,000** (675,020,800 lifetime tokens; **67.50%**). The resumed log has reached step **70,100** (675,840,000 lifetime tokens; **67.58%**), with loss **3.7190**, **8,665 tokens/sec**, **93%** sampled GPU utilization, and **8.24 GiB** peak allocated VRAM. The latest durable checkpoint remains step 70,000; the run is repeating the unsaved steps 70,001–73,400 before continuing.
 - Live progress observed **2026-11-16 20:52 CET (Europe/Zurich)**: step **71,300**, 685,670,400 / 1,000,000,000 lifetime tokens (**68.57%**), loss **3.6861**, **8,762 tokens/sec**, **60%** sampled GPU utilization, and **8.24 GiB** peak allocated VRAM. This is log progress; the latest durable checkpoint remains step **70,000** (**67.50%**).
-- Save interval: every **5,000 optimizer steps** to reduce unsaved work; the exact-resume settings and effective batch size remain unchanged. Only C: is available for storage; it had **169 GiB free** at restart. Existing checkpoints are retained.
+- Save interval: every **5,000 optimizer steps** through the durable step-75,000 checkpoint; exact-resume settings and effective batch size remain unchanged. Only C: is available for storage; it had **169 GiB free** at the 00:39 restart and about **28.4 GiB free** at the 20:31 restart. Existing checkpoints are retained.
 - The active supervisor still uses the 5,000-step interval through the next durable save at step **75,000**. The committed launcher now sets a **15,000-step** interval for a restart from that checkpoint to reserve C: space for SFT and Desktop export; the tradeoff is a larger potential replay window. Existing Ryn checkpoints and training data are retained.
 - Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch as recorded in Hardware above.
 - Completion time and the verified Desktop artifact path will be recorded here after pretraining, SFT, evaluation, and export are finished.
