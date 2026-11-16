@@ -321,6 +321,8 @@ The training corpus and validation split are prepared. CUDA pretraining resumed 
 ## Continued training run
 
 - Restarted: **2026-11-16 00:39 CET (Europe/Zurich)** from the last durable 256-token checkpoint, step **2,700** (123,699,200 lifetime tokens; **12.37%** of the 1B-token target). The previous log reached step 5,000 (142,540,800 lifetime tokens), but `latest.json` remained at 2,700; steps 2,701–5,000 must be repeated.
+- Durable checkpoint: **step 5,000**, saved **2026-11-16 01:11 CET**; 142,540,800 / 1,000,000,000 lifetime tokens (**14.25%**), latest logged loss 4.3710, throughput 10,051 tokens/sec, peak VRAM 8.24 GiB. The rate-based estimate was 85,306 seconds (23.7 hours) remaining for pretraining only; SFT, evaluation, and Desktop export remain after it.
+- Private GitHub recovery: the step-2,700 full-data bundle and step-5,000 incremental exact-resume bundle are in [the private draft release](https://github.com/bxanedot/ryn/releases/tag/untagged-86a2bf9a5435c64c887c). GitHub-reported digests and sizes for both step-5,000 parts match the local SHA-256 manifest.
 - Save interval: every **5,000 optimizer steps** to reduce unsaved work; the exact-resume settings and effective batch size remain unchanged. Only C: is available for storage; it had **169 GiB free** at restart. Existing checkpoints are retained.
 - Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch as recorded in Hardware above.
 - Completion time and the verified Desktop artifact path will be recorded here after pretraining, SFT, evaluation, and export are finished.
