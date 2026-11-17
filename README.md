@@ -362,6 +362,7 @@ python scripts/chat.py --model outputs/ryn-assistant-300m-instruct --prompt "Hel
 - SFT reached **5,000/5,000** steps at approximately **2026-11-17 16:45 CET**; final logged loss **2.8326** and validation losses were recorded in `work/ryn-data/sft-final-256-resume.log`.
 - The final SFT optimizer checkpoint could not be serialized because C: ran out of space. The latest durable SFT model is checkpoint **4,000**; its verified model SHA-256 is **95C8B0B73FDA7E8FFF5C50C6EA913030D22696BB8BA030935B8F78426F6E58F1**.
 - Desktop artifact: `C:\Users\bxane\Desktop\Ryn-0.3B-SFT-step-4000\` (one `model.safetensors` plus config and tokenizer files; the large files are hard links to the durable checkpoint, so no duplicate model bytes were created).
+- Read-only Desktop load/inference check passed at **2026-11-17 14:57 CET**. The sample output was repetitive, so this confirms packaging/runtime compatibility only, not task quality.
 - Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch. All timestamps above use **Europe/Zurich (CET, UTC+01:00)**.
 
 ## License and provenance
