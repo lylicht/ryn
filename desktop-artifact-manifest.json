@@ -1,0 +1,11 @@
+{
+  "artifact": "Ryn-0.3B-SFT-step-4000",
+  "checkpoint": "checkpoint-00004000",
+  "sha256_model_safetensors": "95C8B0B73FDA7E8FFF5C50C6EA913030D22696BB8BA030935B8F78426F6E58F1",
+  "desktop_path": "C:\\Users\\bxane\\Desktop\\Ryn-0.3B-SFT-step-4000",
+  "parameters": 295825920,
+  "sequence_length": 256,
+  "hardware": "NVIDIA GeForce RTX 4070 SUPER 12 GiB; AMD Ryzen 9 7900X3D; 31.2 GiB RAM",
+  "timezone": "Europe/Zurich (CET, UTC+01:00)",
+  "note": "Model and metadata files on Desktop are hard-linked to the durable local checkpoint; model bytes are not duplicated in this Git repository."
+}

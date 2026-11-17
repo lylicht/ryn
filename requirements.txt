@@ -1,6 +1,7 @@
 # Install a CUDA-enabled PyTorch wheel that matches the GPU host first.
 torch>=2.6
-transformers>=4.57
-datasets>=3.6
+# The pinned MiniMind config still uses the Transformers 5 rope_scaling API.
+transformers>=4.57,<6
 tokenizers>=0.21
 safetensors>=0.4
+datasets>=4,<5
