@@ -1,6 +1,6 @@
 # Ryn: multilingual 300M assistant
 
-Ryn is a from-scratch multilingual general assistant built with the pinned MiniMind architecture. `configs/ryn0_3b.json` defines **295,825,920 parameters** with tied embeddings and the Qwen2.5 tokenizer. The tokenizer is used for text only; no Qwen model weights are used. CUDA pretraining resumed from durable checkpoint 70,000; the final fine-tuned model has not yet been evaluated or exported to Desktop.
+Ryn is a from-scratch multilingual general assistant built with the pinned MiniMind architecture. `configs/ryn0_3b.json` defines **295,825,920 parameters** with tied embeddings and the Qwen2.5 tokenizer. The tokenizer is used for text only; no Qwen model weights are used. CUDA pretraining reached the 1B-token target and SFT reached 5,000/5,000 steps; the latest durable SFT model is checkpoint 4,000 and is exported to Desktop as a hard-linked model package.
 
 The pinned tokenizer has 151,665 entries. Both model configs and the trainer validate this vocabulary and its resulting parameter count; the prior config estimate used a stale vocabulary size.
 
@@ -355,6 +355,14 @@ python scripts/chat.py --model outputs/ryn-assistant-300m-instruct --prompt "Hel
 - Save interval was **5,000 optimizer steps** through step 75,000; the current 15,000-step cadence reserves C: space for SFT checkpoints and Desktop export, at the cost of a larger possible replay window. Only C: is available for storage; it had **169 GiB free** at the 00:39 restart and about **28.4 GiB free** at the 20:31 restart.
 - Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch as recorded in Hardware above.
 - Completion time and the verified Desktop artifact path will be recorded here after pretraining, SFT, evaluation, and export are finished.
+
+### Final training/export record (2026-11-17, Europe/Zurich CET)
+
+- Pretraining completed at **2026-11-17 11:35 CET**: step **109,671**, **898,424,832** target tokens, final logged loss **3.6085**.
+- SFT reached **5,000/5,000** steps at approximately **2026-11-17 16:45 CET**; final logged loss **2.8326** and validation losses were recorded in `work/ryn-data/sft-final-256-resume.log`.
+- The final SFT optimizer checkpoint could not be serialized because C: ran out of space. The latest durable SFT model is checkpoint **4,000**; its verified model SHA-256 is **95C8B0B73FDA7E8FFF5C50C6EA913030D22696BB8BA030935B8F78426F6E58F1**.
+- Desktop artifact: `C:\Users\bxane\Desktop\Ryn-0.3B-SFT-step-4000\` (one `model.safetensors` plus config and tokenizer files; the large files are hard links to the durable checkpoint, so no duplicate model bytes were created).
+- Hardware: NVIDIA GeForce RTX 4070 SUPER 12 GiB, AMD Ryzen 9 7900X3D, 31.2 GiB RAM, Windows 11 Pro, CUDA/PyTorch. All timestamps above use **Europe/Zurich (CET, UTC+01:00)**.
 
 ## License and provenance
 
